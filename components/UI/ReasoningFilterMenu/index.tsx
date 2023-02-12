@@ -9,7 +9,13 @@ type ReasoningFilterMenuOptionType = "reason" | "channel";
 export const reasoningFilterMenuOptions: readonly ReasoningFilterMenuOption[] =
   [
     {
-      label: "Depremzede",
+      label: "Teyidli Depremzede",
+      value: "babala",
+      extraValue: "enkaz",
+      type: "channel",
+    },
+    {
+      label: "Tüm Depremzede",
       value: "twitter",
       type: "channel",
     },
@@ -32,10 +38,12 @@ export interface ReasoningFilterMenuOption {
 
   value: string;
 
+  extraValue?: string;
+
   type: ReasoningFilterMenuOptionType;
 }
 
-const valueToOption = (value: string): ReasoningFilterMenuOption => {
+const valueToOption = (value: string | string[]): ReasoningFilterMenuOption => {
   return reasoningFilterMenuOptions.find(
     (option) => option.value === value
   ) as ReasoningFilterMenuOption;

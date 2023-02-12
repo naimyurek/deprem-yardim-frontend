@@ -481,7 +481,7 @@
 }
 
 .filterMenu {
-  min-width: 180px;
+  min-width: 220px;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(5px);

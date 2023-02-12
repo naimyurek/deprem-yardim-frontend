@@ -71,7 +71,7 @@ type Props = {
 
 const FilterTimeMenu = ({ onChangeTime }: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [selectedValue, setSelectedValue] = useState<TimeOption>("last12Hours");
+  const [selectedValue, setSelectedValue] = useState<TimeOption>("all");
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -44,14 +44,25 @@ const LeafletMap = dynamic(() => import("@/components/UI/Map"), {
 const getReasoningFilter = (
   reasoningFilterMenuOption: ReasoningFilterMenuOption
 ) => {
-  reasoningFilterMenuOption.type;
-  if (reasoningFilterMenuOption.type === "channel") {
-    return undefined;
-  }
-
-  if (reasoningFilterMenuOption.type === "reason") {
+  if (reasoningFilterMenuOption?.type === "reason") {
     return reasoningFilterMenuOption.value;
   }
+
+  if (reasoningFilterMenuOption?.type === "channel") {
+    return reasoningFilterMenuOption.extraValue;
+  }
+
+  return undefined;
+};
+
+const getChannelFilter = (
+  reasoningFilterMenuOption: ReasoningFilterMenuOption
+) => {
+  if (reasoningFilterMenuOption?.type === "channel") {
+    return reasoningFilterMenuOption.value;
+  }
+
+  return undefined;
 };
 
 type Props = {
@@ -75,6 +86,7 @@ export default function Home({ deviceType, singleItemDetail }: Props) {
 
   const urlParams = useMemo(() => {
     const reasoningFilterValue = getReasoningFilter(reasoningFilterMenuOption);
+    const channelFilterValue = getChannelFilter(reasoningFilterMenuOption);
     return new URLSearchParams({
       ne_lat: coordinatesAndEventType?.ne_lat,
       ne_lng: coordinatesAndEventType?.ne_lng,
@@ -82,6 +94,7 @@ export default function Home({ deviceType, singleItemDetail }: Props) {
       sw_lng: coordinatesAndEventType?.sw_lng,
       time_stamp: newerThanTimestamp ? newerThanTimestamp : undefined,
       ...(reasoningFilterValue ? { reason: reasoningFilterValue } : {}),
+      ...(channelFilterValue ? { channel: channelFilterValue } : {}),
     } as any).toString();
   }, [
     coordinatesAndEventType?.ne_lat,
@@ -179,6 +192,7 @@ export default function Home({ deviceType, singleItemDetail }: Props) {
                   flexDirection: "column",
                   alignItems: "flex-end",
                   gap: 2,
+                  minWidth: "200px",
                 }}
               >
                 <ReasoningFilterMenu onChange={setReasoningFilterMenuOption} />
