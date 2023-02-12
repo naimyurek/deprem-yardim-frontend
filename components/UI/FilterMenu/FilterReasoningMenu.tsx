@@ -60,10 +60,13 @@ const ReasoningFilterMenu: React.FC<FilterReasoningMenuProps> = ({
 
   const initReasoningFilter = () => {
     const { reasoningFilter = initialReasoningFilter.value } = router.query;
+    if (selectedValue === reasoningFilter) {
+      return;
+    }
     setSelectedValue(reasoningFilter as string);
   };
 
-  useEffect(initReasoningFilter, [router.query]);
+  useEffect(initReasoningFilter, [router.query, selectedValue]);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

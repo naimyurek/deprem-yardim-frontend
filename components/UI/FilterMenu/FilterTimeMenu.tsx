@@ -89,10 +89,13 @@ const FilterTimeMenu: React.FC<FilterTimeMenuProps> = ({
 
   const initTimeFilterFromUrl = () => {
     const { timeFilterOption = initTimeFilterOption } = router.query;
+    if (selectedValue === timeFilterOption) {
+      return;
+    }
     setSelectedValue(timeFilterOption as TimeOption);
   };
 
-  useEffect(initTimeFilterFromUrl, [router.query]);
+  useEffect(initTimeFilterFromUrl, [router.query, selectedValue]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
