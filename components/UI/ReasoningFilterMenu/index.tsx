@@ -2,7 +2,6 @@ import { useEffect, useState, MouseEvent } from "react";
 import { Box, Button, Menu, MenuItem } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import styles from "../../../styles/Home.module.css";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 type ReasoningFilterMenuOptionType = "reason" | "channel";
 
@@ -43,7 +42,7 @@ export interface ReasoningFilterMenuOption {
   type: ReasoningFilterMenuOptionType;
 }
 
-const valueToOption = (value: string | string[]): ReasoningFilterMenuOption => {
+const valueToOption = (value: string): ReasoningFilterMenuOption => {
   return reasoningFilterMenuOptions.find(
     (option) => option.value === value
   ) as ReasoningFilterMenuOption;
@@ -56,9 +55,8 @@ interface ReasoningFilterMenuProps {
 const localFilterMenuSelectedKey = "initReasoningFilterMenuSelectedValue";
 const ReasoningFilterMenu = ({ onChange }: ReasoningFilterMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const [selectedValue, setSelectedValue] = useLocalStorage(
-    localFilterMenuSelectedKey,
-    initialReasoningFilter.value
+  const [selectedValue, setSelectedValue] = useState(
+    localFilterMenuSelectedKey
   );
   const open = Boolean(anchorEl);
 
